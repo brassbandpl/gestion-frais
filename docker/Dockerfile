@@ -5,6 +5,7 @@ RUN apt-get update && \
     php-common \
     php-cli \
     php7.2-xml \
+    php-mysql \
     php-mbstring \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir /run/php/ \

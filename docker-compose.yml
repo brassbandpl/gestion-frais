@@ -1,8 +1,19 @@
 version: '3'
 services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: my_secret_pw_shh
+      MYSQL_DATABASE: gestionfrais
+      MYSQL_USER: devuser
+      MYSQL_PASSWORD: devpass
+    ports:
+      - "3306:3306"
   web:
     image: "gestionfrais:latest"
     ports:
       - "8000:8000"
     volumes:
       - .:/srv/app
+    links:
+      - db
