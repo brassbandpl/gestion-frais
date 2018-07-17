@@ -22,7 +22,8 @@ Encore
     //.enableTypeScriptLoader()
 
     // uncomment if you use Sass/SCSS files
-    //.enableSassLoader()
+    .enableSassLoader()
+    .addStyleEntry('global', './assets/css/global.scss')
 
     // uncomment for legacy applications that require $/jQuery as a global variable
     //.autoProvidejQuery()

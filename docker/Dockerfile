@@ -7,9 +7,14 @@ RUN apt-get update && \
     php7.2-xml \
     php-mysql \
     php-mbstring \
+    curl \
+    && apt install -y nodejs npm \
+    && npm install -g npm@latest \
+    && npm install -g yarn \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir /run/php/ \
-    && ln -s /usr/sbin/php-fpm7.2 /usr/local/bin/php-fpm
+    && ln -s /usr/sbin/php-fpm7.2 /usr/local/bin/php-fpm \
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 WORKDIR /srv/app
 EXPOSE 8000
