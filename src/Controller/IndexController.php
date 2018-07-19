@@ -16,14 +16,4 @@ class IndexController extends Controller
     {
         return $this->redirectToRoute('security_login');
     }
- 
-    /**
-     * @Route("/admin", name="admin")
-     */
-    public function admin(EntityManagerInterface $entityManager)
-    {
-        $events = $entityManager->getRepository(Event::class)->findAll();
-
-        return $this->render('admin.html.twig', ['events' => $events]);
-    }
 }
