@@ -24,6 +24,8 @@ Encore
     // uncomment if you use Sass/SCSS files
     .enableSassLoader()
     .addStyleEntry('global', './assets/css/global.scss')
+    .addStyleEntry('main', './assets/css/main.css')
+    .addStyleEntry('util', './assets/css/util.css')
 
     // uncomment for legacy applications that require $/jQuery as a global variable
     //.autoProvidejQuery()

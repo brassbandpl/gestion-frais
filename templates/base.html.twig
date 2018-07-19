@@ -2,9 +2,11 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}BBPL - Gestion des frais{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="stylesheet" href="{{ asset('build/global.css') }}">
+        <link rel="stylesheet" href="{{ asset('build/main.css') }}">
+        <link rel="stylesheet" href="{{ asset('build/util.css') }}">
     </head>
     <body>
         {% block body %}{% endblock %}
