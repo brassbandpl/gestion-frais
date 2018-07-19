@@ -5,3 +5,26 @@ $primary: darken(#428bca, 20%);
 
 // the ~ allows you to reference things in node_modules
 @import "~bootstrap/scss/bootstrap";
+
+.card {
+    margin: 0 auto; /* Added */
+    float: none; /* Added */
+    margin-bottom: 10px; /* Added */
+}
+
+[role="main"] {
+    padding-top: 48px;
+}
+
+.navbar-nav {
+    display: flex;
+    flex-direction: row;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+.navbar-nav .nav-link {
+    padding-right: .5rem;
+    padding-left: .5rem;
+}

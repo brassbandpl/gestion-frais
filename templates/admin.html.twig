@@ -1,10 +1,28 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div id="page-content-wrapper">
-        <div class="container-fluid">
-            <h1>Bienvenue {{ app.user.username }} !</h1>
-            <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle Menu</a>
-        </div>
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">BBPL - Gestion des frais</a>
+      
+      <ul class="navbar-nav px-15">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="#">{{ app.user.username }}</a>
+        </li>
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="{{ path('security_logout') }}">Déconnexion</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="container-fluid">
+        <main role="main">
+            {% for event in events %}
+                <div class="card w-75 mb-2">
+                    <div class="card-body">
+                        <h5 class="card-title">Répétition du {{ event.date|date('d/m/Y') }}</h5>
+                        <a href="#" class="btn btn-primary">Déclarer</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </main>
     </div>
 {% endblock %}
