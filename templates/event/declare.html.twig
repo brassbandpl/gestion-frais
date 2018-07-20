@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">BBPL - Gestion des frais</a>
+      
+      <ul class="navbar-nav px-15">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="#">{{ app.user.username }}</a>
+        </li>
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="{{ path('security_logout') }}">Déconnexion</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="container-fluid">
+        <main role="main">
+            <h5 class="card-title">Répétition du {{ event.date|date('d/m/Y') }}</h5>
+
+            {% form_theme form 'bootstrap_4_layout.html.twig' %}
+            {{ form_start(form, {attr: {class: 'my-form-class'} }) }}
+                <fieldset>
+                    <!-- Form Name -->
+                    <legend>Trajet Aller</legend>
+                    <div class="form-group">
+                        {{ form_label(form.nbKmGo, 'Nombre de km') }}
+                        {{ form_errors(form.nbKmGo) }}
+                        {{ form_widget(form.nbKmGo) }}
+                        {{ form_help(form.nbKmGo) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.tollGo, 'Péage') }}
+                        {{ form_errors(form.tollGo) }}
+                        {{ form_widget(form.tollGo) }}
+                        {{ form_help(form.tollGo) }}
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <!-- Form Name -->
+                    <legend>Trajet Retour</legend>
+                    <div class="form-group">
+                        {{ form_label(form.nbKmReturn, 'Nombre de km') }}
+                        {{ form_errors(form.nbKmReturn) }}
+                        {{ form_widget(form.nbKmReturn) }}
+                        {{ form_help(form.nbKmReturn) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.tollReturn, 'Péage') }}
+                        {{ form_errors(form.tollReturn) }}
+                        {{ form_widget(form.tollReturn) }}
+                        {{ form_help(form.tollReturn) }}
+                    </div>
+                </fieldset>
+            {{ form_end(form) }}
+        </main>
+    </div>
+{% endblock %}
