@@ -1,0 +1,8 @@
+<div class="card w-100 mb-2">
+    <div class="card-body">
+        <h5 class="card-title">Répétition du {{ event.date|date('d/m/Y') }}</h5>
+        {% if event.isDeclarable() %}
+            <a href="{{ path('event_declare', {'id': event.id}) }}" class="btn btn-primary">Déclarer</a>
+        {% endif %}
+    </div>
+</div>

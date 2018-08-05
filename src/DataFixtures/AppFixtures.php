@@ -59,6 +59,8 @@ class AppFixtures extends Fixture
             [new \DateTime('2018-03-26'), 'repetition'],
             [new \DateTime('2018-04-02'), 'repetition'],
             [new \DateTime('2018-04-09'), 'repetition'],
+            [new \DateTime('2018-08-27'), 'repetition'],
+            [new \DateTime('2018-09-03'), 'repetition'],
         ];
     }
 

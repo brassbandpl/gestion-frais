@@ -20,14 +20,21 @@
     </nav>
     <div class="container-fluid">
         <main role="main">
-            {% for event in events %}
-                <div class="card w-75 mb-2">
-                    <div class="card-body">
-                        <h5 class="card-title">Répétition du {{ event.date|date('d/m/Y') }}</h5>
-                        <a href="{{ path('event_declare', {'id': event.id}) }}" class="btn btn-primary">Déclarer</a>
-                    </div>
-                </div>
-            {% endfor %}
+            <div class="mx-auto w-75 mb-2">
+                <h2 class="mt-4 mb-4">A déclarer</h2>
+                {% for event in events %}
+                    {% if event.isDeclarable() %}
+                        {{ include('list_item.html.twig', {event: event}) }}
+                    {% endif %}
+                {% endfor %}
+
+                <h2 class="mt-4 mb-4">A venir</h2>
+                {% for event in events %}
+                    {% if not event.isDeclarable() %}
+                        {{ include('list_item.html.twig', {event: event}) }}
+                    {% endif %}
+                {% endfor %}
+            </div>
         </main>
     </div>
 {% endblock %}

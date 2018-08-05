@@ -54,4 +54,9 @@ class Event
 
         return $this;
     }
+
+    public function isDeclarable(): bool
+    {
+        return $this->date < new \DateTime();
+    }
 }
