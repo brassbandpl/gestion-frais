@@ -9,6 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Event
 {
+    const TYPE_REPETITION = 'repetition';
+    const TYPE_CONCERT = 'concert';
+    
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
