@@ -6,13 +6,19 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\CoreBundle\Form\Type\DatePickerType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class EventAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper->add('date', DatePickerType::class, array('format'=>'dd/MM/yyyy'));
-        $formMapper->add('type');
+        $formMapper->add('type', ChoiceType::class, array(
+            'choices' => array(
+                'Répétition' => 'repetition',
+                'Concert' => 'concert',
+            ),
+        ));
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
