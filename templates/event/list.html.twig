@@ -7,18 +7,28 @@
         <main role="main">
             <div class="mx-auto w-75 mb-2">
                 <h2 class="mt-4 mb-4">A déclarer</h2>
+                {% set hasEvent = false %}
                 {% for event in events %}
                     {% if event.isDeclarable() %}
+                        {% set hasEvent = true %}
                         {{ include('list_item.html.twig', {event: event}) }}
                     {% endif %}
                 {% endfor %}
+                {% if not hasEvent %}
+                    Aucune saisie à effectuer
+                {% endif %}
 
                 <h2 class="mt-4 mb-4">A venir</h2>
+                {% set hasEvent = false %}
                 {% for event in events %}
                     {% if not event.isDeclarable() %}
+                        {% set hasEvent = true %}
                         {{ include('list_item.html.twig', {event: event}) }}
                     {% endif %}
                 {% endfor %}
+                {% if not hasEvent %}
+                    Aucun événement à venir
+                {% endif %}
             </div>
         </main>
     </div>
