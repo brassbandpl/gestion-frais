@@ -1,0 +1,24 @@
+<nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark p-0 shadow">
+    <a class="navbar-brand" href="#">BBPL - Gestion des frais</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExample03">
+        <ul class="navbar-nav mr-auto">
+        </ul>
+        <ul class="navbar-nav">
+            {% if app.user and is_granted('ROLE_ADMIN') %}
+            <li class="nav-item">
+                <a class="nav-link" href="/admin">Administration</a>
+            </li>
+            {% endif %}
+            <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ app.user.username }}</a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown03">
+                <a class="dropdown-item" href="{{ path('security_logout') }}">Déconnexion</a>
+            </div>
+            </li>
+        </ul>
+    </div>
+</nav>

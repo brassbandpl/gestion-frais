@@ -1,23 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">BBPL - Gestion des frais</a>
-      
-      <ul class="navbar-nav px-15">
-        <li class="nav-item text-nowrap">
-          <a class="nav-link" href="#">{{ app.user.username }}</a>
-        </li>
-        {% if app.user and is_granted('ROLE_ADMIN') %}
-            <li class="nav-item text-nowrap">
-                <a class="nav-link" href="/admin">Administration</a>
-            </li>
-        {% endif %}
-        <li class="nav-item text-nowrap">
-          <a class="nav-link" href="{{ path('security_logout') }}">Déconnexion</a>
-        </li>
-      </ul>
-    </nav>
+    {{ include('navbar.html.twig') }}
+
     <div class="container-fluid">
         <main role="main">
             <div class="mx-auto w-75 mb-2">

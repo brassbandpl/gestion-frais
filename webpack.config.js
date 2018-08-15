@@ -26,6 +26,8 @@ Encore
     .addStyleEntry('global', './assets/css/global.scss')
     .addStyleEntry('main', './assets/css/main.css')
     .addStyleEntry('util', './assets/css/util.css')
+    .addEntry('js/app', './assets/js/app.js')
+    .autoProvidejQuery()
 
     // uncomment for legacy applications that require $/jQuery as a global variable
     //.autoProvidejQuery()
