@@ -19,6 +19,10 @@ class EventAdmin extends AbstractAdmin
                 'Concert' => 'concert',
             ),
         ));
+        $formMapper->add('addressLabel');
+        $formMapper->add('address');
+        $formMapper->add('postalCode');
+        $formMapper->add('city');
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)

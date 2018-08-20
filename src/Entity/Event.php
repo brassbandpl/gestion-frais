@@ -11,7 +11,7 @@ class Event
 {
     const TYPE_REPETITION = 'repetition';
     const TYPE_CONCERT = 'concert';
-    
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -28,6 +28,26 @@ class Event
      * @ORM\Column(type="string", length=50)
      */
     private $type;
+
+    /**
+     * @ORM\Column(type="string", length=150)
+     */
+    private $addressLabel;
+
+    /**
+     * @ORM\Column(type="string", length=250)
+     */
+    private $address;
+
+    /**
+     * @ORM\Column(type="string", length=5)
+     */
+    private $postalCode;
+
+    /**
+     * @ORM\Column(type="string", length=250)
+     */
+    private $city;
 
     public function getId()
     {
@@ -61,5 +81,53 @@ class Event
     public function isDeclarable(): bool
     {
         return $this->date < new \DateTime();
+    }
+
+    public function getAddressLabel(): ?string
+    {
+        return $this->addressLabel;
+    }
+
+    public function setAddressLabel(string $addressLabel): self
+    {
+        $this->addressLabel = $addressLabel;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getPostalCode(): ?string
+    {
+        return $this->postalCode;
+    }
+
+    public function setPostalCode(string $postalCode): self
+    {
+        $this->postalCode = $postalCode;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
     }
 }
