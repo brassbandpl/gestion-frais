@@ -5,6 +5,10 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
+    euroPerKm: '%env(float:EURO_PER_KM)%'
+    isTollGoRefunded: '%env(bool:IS_TOLL_GO_REFUNDED)%'
+    isTollReturnRefunded: '%env(bool:IS_TOLL_RETURN_REFUNDED)%'
+    nbKmNotRefund: '%env(float:NB_KM_NOT_REFUND)%'
 
 services:
     # default configuration for services in *this* file
@@ -14,7 +18,11 @@ services:
         public: false       # Allows optimizing the container by removing unused services; this also means
                             # fetching services directly from the container via $container->get() won't work.
                             # The best practice is to be explicit about your dependencies anyway.
-
+        bind:
+            $euroPerKm: '%euroPerKm%'
+            $isTollGoRefunded: '%isTollGoRefunded%'
+            $isTollReturnRefunded: '%isTollReturnRefunded%'
+            $nbKmNotRefund: '%nbKmNotRefund%'
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:

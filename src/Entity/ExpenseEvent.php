@@ -37,6 +37,26 @@ class ExpenseEvent
     private $tollReturn;
 
     /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $refundKmGo;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $refundKmReturn;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $refundTollGo;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $refundTollReturn;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Event")
      * @ORM\JoinColumn(name="event_id", referencedColumnName="id", nullable=false)
      */
@@ -121,6 +141,54 @@ class ExpenseEvent
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getRefundKmGo(): ?float
+    {
+        return $this->refundKmGo;
+    }
+
+    public function setRefundKmGo(?float $refundKmGo): self
+    {
+        $this->refundKmGo = $refundKmGo;
+
+        return $this;
+    }
+
+    public function getRefundKmReturn(): ?float
+    {
+        return $this->refundKmReturn;
+    }
+
+    public function setRefundKmReturn(?float $refundKmReturn): self
+    {
+        $this->refundKmReturn = $refundKmReturn;
+
+        return $this;
+    }
+
+    public function getRefundTollGo(): ?float
+    {
+        return $this->refundTollGo;
+    }
+
+    public function setRefundTollGo(?float $refundTollGo): self
+    {
+        $this->refundTollGo = $refundTollGo;
+
+        return $this;
+    }
+
+    public function getRefundTollReturn(): ?float
+    {
+        return $this->refundTollReturn;
+    }
+
+    public function setRefundTollReturn(?float $refundTollReturn): self
+    {
+        $this->refundTollReturn = $refundTollReturn;
 
         return $this;
     }

@@ -13,6 +13,14 @@ use Symfony\Component\Security\Core\Security;
 
 class EventController extends Controller
 {
+    public function __construct($euroPerKm, $isTollGoRefunded, $isTollReturnRefunded, $nbKmNotRefund) 
+    {
+        $this->euroPerKm = $euroPerKm;
+        $this->isTollGoRefunded = $isTollGoRefunded;
+        $this->isTollReturnRefunded = $isTollReturnRefunded;
+        $this->nbKmNotRefund = $nbKmNotRefund;
+    }
+
     /**
      * @Route("/event/list", name="event_list")
      */
@@ -47,6 +55,16 @@ class EventController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $expenseEvent = $form->getData();
+            $expenseEvent->setRefundKmGo(0);
+            $expenseEvent->setRefundKmReturn(0);
+            if ($expenseEvent->getNbKmGo()-$this->nbKmNotRefund > 0) {
+                $expenseEvent->setRefundKmGo($this->euroPerKm * ($expenseEvent->getNbKmGo()-$this->nbKmNotRefund));
+            }
+            if ($expenseEvent->getNbKmReturn()-$this->nbKmNotRefund > 0) {
+                $expenseEvent->setRefundKmReturn($this->euroPerKm * ($expenseEvent->getNbKmReturn()-$this->nbKmNotRefund));
+            }
+            $expenseEvent->setRefundTollGo($this->isTollGoRefunded ? $expenseEvent->getTollGo() : 0);
+            $expenseEvent->setRefundTollReturn($this->isTollReturnRefunded ? $expenseEvent->getTollGo() : 0);
             $entityManager->persist($expenseEvent);
             $entityManager->flush();
 
