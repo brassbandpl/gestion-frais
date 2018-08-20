@@ -5,7 +5,13 @@
             <h6 class="card-subtitle mb-2 text-muted"><i class="fas fa-map-marker-alt"></i> {{event.addressLabel}}, {{event.address}}, {{event.postalCode}}, {{event.city}}</h6>
         {% endif %}
         {% if event.isDeclarable() %}
-            <a href="{{ path('event_declare', {'id': event.id}) }}" class="btn btn-primary">Déclarer</a>
+            {% if event.getExpenseEventsByUser(user)|length > 0 %}
+                <a href="" class='btn btn-secondary'>
+                    <i class="fas fa-pencil-alt"></i> Modifier
+                </a>
+            {% else %}
+                <a href="{{ path('event_declare', {'id': event.id}) }}" class="btn btn-primary">Déclarer</a>
+            {% endif %}
         {% endif %}
     </div>
 </div>

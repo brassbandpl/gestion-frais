@@ -16,11 +16,12 @@ class EventController extends Controller
     /**
      * @Route("/event/list", name="event_list")
      */
-    public function list(EntityManagerInterface $entityManager)
+    public function list(EntityManagerInterface $entityManager, Security $security)
     {
+        $user = $security->getUser();
         $events = $entityManager->getRepository(Event::class)->findAll();
-
-        return $this->render('event/list.html.twig', ['events' => $events]);
+        
+        return $this->render('event/list.html.twig', ['events' => $events, 'user' => $user]);
     }
 
     /**

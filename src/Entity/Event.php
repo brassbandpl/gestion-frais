@@ -2,6 +2,9 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -48,6 +51,16 @@ class Event
      * @ORM\Column(type="string", length=250)
      */
     private $city;
+
+     /**
+      * @ORM\OneToMany(targetEntity="ExpenseEvent", mappedBy="event")
+      */
+    private $expenseEvents;
+
+    public function __construct()
+    {
+        $this->expenseEvents = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -129,5 +142,44 @@ class Event
         $this->city = $city;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|ExpenseEvent[]
+     */
+    public function getExpenseEvents(): Collection
+    {
+        return $this->expenseEvents;
+    }
+
+    public function addExpenseEvent(ExpenseEvent $expenseEvent): self
+    {
+        if (!$this->expenseEvents->contains($expenseEvent)) {
+            $this->expenseEvents[] = $expenseEvent;
+            $expenseEvent->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExpenseEvent(ExpenseEvent $expenseEvent): self
+    {
+        if ($this->expenseEvents->contains($expenseEvent)) {
+            $this->expenseEvents->removeElement($expenseEvent);
+            // set the owning side to null (unless already changed)
+            if ($expenseEvent->getEvent() === $this) {
+                $expenseEvent->setEvent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getExpenseEventsByUser($user)
+    {
+        $criteria = Criteria::create();
+        $criteria->where(Criteria::expr()->eq('user', $user));
+
+        return $this->expenseEvents->matching($criteria);
     }
 }
