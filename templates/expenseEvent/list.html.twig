@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('navbar.html.twig') }}
+
+    <div class="container-fluid">
+        <main role="main">
+            <div class="mx-auto w-75 mb-2">
+                <h2 class="mt-4 mb-4">Mes frais</h2>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="table-secondary">
+                            <th scope="col">Date</th>
+                            <th scope="col">KM Aller</th>
+                            <th scope="col">Péage Aller</th>
+                            <th scope="col">KM Retour</th>
+                            <th scope="col">Péage Retour</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for expenseEvent in expenseEvents %}
+                            <tr>
+                                <th scope="row">{{ expenseEvent.event.date|date('d/m/Y') }}</th>
+                                <td>{{expenseEvent.nbKmGo}}</td>
+                                <td>{{expenseEvent.tollGo}}</td>
+                                <td>{{expenseEvent.nbKmReturn}}</td>
+                                <td>{{expenseEvent.tollReturn}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+{% endblock %}

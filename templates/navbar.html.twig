@@ -6,6 +6,12 @@
 
     <div class="collapse navbar-collapse" id="navbarsExample03">
         <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/event/list">Saisir</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/expenseEvent/list">Mes frais</a>
+            </li>
         </ul>
         <ul class="navbar-nav">
             {% if app.user and is_granted('ROLE_ADMIN') %}
