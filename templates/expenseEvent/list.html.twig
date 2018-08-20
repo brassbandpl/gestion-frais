@@ -10,21 +10,37 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr class="table-secondary">
+                            <th scope="col"></th>
+                            <td colspan="4" class="text-center">Frais engagés</td>
+                            <td colspan="4" class="text-center">Remboursement BBPL</td>
+                            <th scope="col"></th>
+                        </tr>
+                        <tr class="table-secondary">
                             <th scope="col">Date</th>
                             <th scope="col">KM Aller</th>
                             <th scope="col">Péage Aller</th>
                             <th scope="col">KM Retour</th>
                             <th scope="col">Péage Retour</th>
+                            <th scope="col">KM Aller</th>
+                            <th scope="col">Péage Aller</th>
+                            <th scope="col">KM Retour</th>
+                            <th scope="col">Péage Retour</th>
+                            <th scope="col">Total Remboursé</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for expenseEvent in expenseEvents %}
                             <tr>
                                 <th scope="row">{{ expenseEvent.event.date|date('d/m/Y') }}</th>
-                                <td>{{expenseEvent.nbKmGo}}</td>
-                                <td>{{expenseEvent.tollGo}}</td>
-                                <td>{{expenseEvent.nbKmReturn}}</td>
-                                <td>{{expenseEvent.tollReturn}}</td>
+                                <td>{{expenseEvent.nbKmGo}} km</td>
+                                <td>{{expenseEvent.tollGo}} €</td>
+                                <td>{{expenseEvent.nbKmReturn}} km</td>
+                                <td>{{expenseEvent.tollReturn}} €</td>
+                                <td>{{expenseEvent.refundKmGo}} €</td>
+                                <td>{{expenseEvent.refundTollGo}} €</td>
+                                <td>{{expenseEvent.refundKmReturn}} €</td>
+                                <td>{{expenseEvent.refundTollReturn}} €</td>
+                                <td>{{expenseEvent.refundKmGo + expenseEvent.refundKmReturn + expenseEvent.refundTollGo + expenseEvent.refundTollReturn}} €</td>
                             </tr>
                         {% endfor %}
                     </tbody>
