@@ -42,5 +42,12 @@ services:
         class: App\Admin\EventAdmin
         arguments: [~, App\Entity\Event, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Event }
+            - { name: sonata.admin, manager_type: orm, label: Evénement }
+        public: true
+    
+    admin.expenseEvent:
+        class: App\Admin\ExpenseEventAdmin
+        arguments: [~, App\Entity\ExpenseEvent, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Frais }
         public: true

@@ -2,3 +2,5 @@ twig:
     paths: ['%kernel.project_dir%/templates', '%kernel.project_dir%/templates/event']
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    form_themes:
+        - '@SonataCore/Form/datepicker.html.twig'

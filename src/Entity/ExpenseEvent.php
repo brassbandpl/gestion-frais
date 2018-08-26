@@ -192,4 +192,9 @@ class ExpenseEvent
 
         return $this;
     }
+
+    public function getTotalRefund(): ?float
+    {
+        return $this->getRefundKmGo() + $this->getRefundKmReturn() + $this->getRefundTollGo() + $this->getRefundTollReturn();
+    }
 }
