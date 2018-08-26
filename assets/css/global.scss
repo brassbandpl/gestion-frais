@@ -19,6 +19,10 @@ $primary: darken(#428bca, 20%);
     padding-top: 48px;
 }
 
+.navbar {
+    width: 100vw;
+}
+
 .navbar-nav {
     display: flex;
     flex-direction: row;
