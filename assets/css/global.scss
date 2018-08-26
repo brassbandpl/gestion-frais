@@ -31,3 +31,9 @@ $primary: darken(#428bca, 20%);
     padding-right: .5rem;
     padding-left: .5rem;
 }
+
+@media (max-width: 575px) {
+    .navbar-nav {
+        flex-direction: column;
+    }
+}

@@ -183,7 +183,7 @@ iframe {
 
 
 .wrap-login100 {
-  width: 680px;
+  width: 33%;
   background: #fff;
   border-radius: 10px;
   position: relative;
@@ -355,6 +355,7 @@ iframe {
   .wrap-login100 {
     padding-left: 60px;
     padding-right: 60px;
+    width: 100%;
   }
 }
 
@@ -362,6 +363,7 @@ iframe {
   .wrap-login100 {
     padding-left: 15px;
     padding-right: 15px;
+    width: 100%;
   }
 
   .btn-face,
