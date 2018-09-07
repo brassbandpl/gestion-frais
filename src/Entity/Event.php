@@ -52,6 +52,11 @@ class Event
      */
     private $city;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $closed;
+
      /**
       * @ORM\OneToMany(targetEntity="ExpenseEvent", mappedBy="event")
       */
@@ -181,5 +186,17 @@ class Event
         $criteria->where(Criteria::expr()->eq('user', $user));
 
         return $this->expenseEvents->matching($criteria);
+    }
+
+    public function getClosed(): ?bool
+    {
+        return $this->closed;
+    }
+
+    public function setClosed(bool $closed): self
+    {
+        $this->closed = $closed;
+
+        return $this;
     }
 }

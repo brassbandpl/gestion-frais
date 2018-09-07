@@ -27,7 +27,10 @@ class EventController extends Controller
     public function list(EntityManagerInterface $entityManager, Security $security)
     {
         $user = $security->getUser();
-        $events = $entityManager->getRepository(Event::class)->findAll();
+        $events = $entityManager->getRepository(Event::class)->findBy(
+            ['closed' => false], 
+            ['date' => 'ASC']
+        );
         
         return $this->render('event/list.html.twig', ['events' => $events, 'user' => $user]);
     }

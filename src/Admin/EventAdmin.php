@@ -23,12 +23,14 @@ class EventAdmin extends AbstractAdmin
         $formMapper->add('address');
         $formMapper->add('postalCode');
         $formMapper->add('city');
+        $formMapper->add('closed');
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper->add('date');
         $datagridMapper->add('type');
+        $datagridMapper->add('closed');
     }
 
     protected function configureListFields(ListMapper $listMapper)
