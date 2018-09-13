@@ -24,4 +24,12 @@ class UserManager
         $this->entityManager->persist($user);
         $this->entityManager->flush();
     }
+
+    public function updatePassword(User $user, $password)
+    {
+        $user->setPassword($this->passwordEncoder->encodePassword($user, $password));
+
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
+    }
 }
