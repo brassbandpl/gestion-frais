@@ -60,14 +60,25 @@ class EventController extends Controller
             $expenseEvent = $form->getData();
             $expenseEvent->setRefundKmGo(0);
             $expenseEvent->setRefundKmReturn(0);
-            if ($expenseEvent->getNbKmGo()-$this->nbKmNotRefund > 0) {
-                $expenseEvent->setRefundKmGo($this->euroPerKm * ($expenseEvent->getNbKmGo()-$this->nbKmNotRefund));
+            if ($event->getType() === 'repetition') {
+                if ($expenseEvent->getNbKmGo()-$this->nbKmNotRefund > 0) {
+                    $expenseEvent->setRefundKmGo($this->euroPerKm * ($expenseEvent->getNbKmGo()-$this->nbKmNotRefund));
+                }
+                if ($expenseEvent->getNbKmReturn()-$this->nbKmNotRefund > 0) {
+                    $expenseEvent->setRefundKmReturn($this->euroPerKm * ($expenseEvent->getNbKmReturn()-$this->nbKmNotRefund));
+                }
+                $expenseEvent->setRefundTollGo($this->isTollGoRefunded ? $expenseEvent->getTollGo() : 0);
+                $expenseEvent->setRefundTollReturn($this->isTollReturnRefunded ? $expenseEvent->getTollReturn() : 0);
+            } else {
+                if ($expenseEvent->getNbKmGo() > 0) {
+                    $expenseEvent->setRefundKmGo($this->euroPerKm * $expenseEvent->getNbKmGo());
+                }
+                if ($expenseEvent->getNbKmReturn() > 0) {
+                    $expenseEvent->setRefundKmReturn($this->euroPerKm * $expenseEvent->getNbKmReturn());
+                }
+                $expenseEvent->setRefundTollGo($expenseEvent->getTollGo());
+                $expenseEvent->setRefundTollReturn($expenseEvent->getTollReturn());
             }
-            if ($expenseEvent->getNbKmReturn()-$this->nbKmNotRefund > 0) {
-                $expenseEvent->setRefundKmReturn($this->euroPerKm * ($expenseEvent->getNbKmReturn()-$this->nbKmNotRefund));
-            }
-            $expenseEvent->setRefundTollGo($this->isTollGoRefunded ? $expenseEvent->getTollGo() : 0);
-            $expenseEvent->setRefundTollReturn($this->isTollReturnRefunded ? $expenseEvent->getTollGo() : 0);
             $entityManager->persist($expenseEvent);
             $entityManager->flush();
 
