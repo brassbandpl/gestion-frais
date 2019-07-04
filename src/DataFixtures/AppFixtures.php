@@ -29,10 +29,15 @@ class AppFixtures extends Fixture
             $this->addReference($username, $user);
         }
 
-        foreach ($this->getEventData() as [$date, $type]) {
+        foreach ($this->getEventData() as [$date, $type, $addressLabel, $address, $postalCode, $city ]) {
             $event = new Event();
             $event->setDate($date);
             $event->setType($type);
+            $event->setAddressLabel($addressLabel);
+            $event->setAddress($address);
+            $event->setPostalCode($postalCode);
+            $event->setCity($city);
+            $event->setClosed(false);
 
             $manager->persist($event);
             $this->addReference($date->format('Ymd'), $event);
@@ -54,13 +59,13 @@ class AppFixtures extends Fixture
     {
         return [
             // $userData = [$username, $password, $email, $roles];
-            [new \DateTime('2018-03-12'), 'repetition'],
-            [new \DateTime('2018-03-19'), 'repetition'],
-            [new \DateTime('2018-03-26'), 'repetition'],
-            [new \DateTime('2018-04-02'), 'repetition'],
-            [new \DateTime('2018-04-09'), 'repetition'],
-            [new \DateTime('2018-08-27'), 'repetition'],
-            [new \DateTime('2018-09-03'), 'repetition'],
+            [new \DateTime('2018-03-12'), 'repetition', 'montjean', 'a', '44490', 'Montjean'],
+            [new \DateTime('2018-03-19'), 'repetition', 'montjean', 'a', '44490', 'Montjean'],
+            [new \DateTime('2018-03-26'), 'repetition', 'montjean', 'a', '44490', 'Montjean'],
+            [new \DateTime('2018-04-02'), 'repetition', 'montjean', 'a', '44490', 'Montjean'],
+            [new \DateTime('2018-04-09'), 'repetition', 'montjean', 'a', '44490', 'Montjean'],
+            [new \DateTime('2018-08-27'), 'repetition', 'montjean', 'a', '44490', 'Montjean'],
+            [new \DateTime('2018-09-03'), 'repetition', 'montjean', 'a', '44490', 'Montjean'],
         ];
     }
 
