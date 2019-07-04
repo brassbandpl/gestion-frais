@@ -7,13 +7,15 @@
     use Symfony\Component\Console\Input\InputArgument;
     use Symfony\Component\Console\Input\InputInterface;
     use Symfony\Component\Console\Output\OutputInterface;
+use Doctrine\ORM\EntityManagerInterface;
 
-    class UpdateUserPasswordCommand extends Command
+class UpdateUserPasswordCommand extends Command
     {
 
-        public function __construct(UserManager $userManager)
+        public function __construct(UserManager $userManager, EntityManagerInterface $entityManager)
         {
             $this->userManager = $userManager;
+            $this->entityManager = $entityManager;
 
             parent::__construct();
         }
