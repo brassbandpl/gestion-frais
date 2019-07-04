@@ -8,6 +8,7 @@ RUN apt-get update && \
     php-mysql \
     php-mbstring \
     curl \
+    && apt install -y git \
     && apt install -y nodejs npm \
     && npm install -g npm@latest \
     && npm install -g yarn \
