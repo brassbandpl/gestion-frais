@@ -19,6 +19,16 @@ class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
+    public function findByNotClosedAndDateLessThan(\DateTime $date): iterable
+    {
+        $query = $this->createQueryBuilder('event');
+        $query->andWhere('event.closed = false');
+        $query->andWhere('event.date <= :date');
+        $query->setParameter('date', $date);
+
+        return $query->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return Event[] Returns an array of Event objects
 //     */
