@@ -29,6 +29,21 @@ class EventRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();
     }
 
+    public function findByNotClosedAndBetweenDates(\DateTime $dateBegin, ?\DateTime $dateEnd): iterable
+    {
+        $query = $this->createQueryBuilder('event');
+        $query->andWhere('event.closed = false');
+        $query->andWhere('event.date >= :dateBegin');
+        $query->setParameter('dateBegin', $dateBegin);
+        if($dateEnd){
+            $query->andWhere('event.date <= :dateEnd');
+            $query->setParameter('dateEnd', $dateEnd);
+        }
+        $query->orderBy('event.date', 'ASC');
+
+        return $query->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return Event[] Returns an array of Event objects
 //     */

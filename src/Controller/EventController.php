@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Event;
 use App\Entity\ExpenseEvent;
+use App\Entity\User;
 use App\Form\ExpenseEventType;
+use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,11 +28,11 @@ class EventController extends Controller
      */
     public function list(EntityManagerInterface $entityManager, Security $security)
     {
+        /** @var User $user */
         $user = $security->getUser();
-        $events = $entityManager->getRepository(Event::class)->findBy(
-            ['closed' => false], 
-            ['date' => 'ASC']
-        );
+        /** @var EventRepository $eventRepo */
+        $eventRepo = $entityManager->getRepository(Event::class);
+        $events = $eventRepo->findByNotClosedAndBetweenDates($user->getDateBegin(), $user->getDateEnd());
         
         return $this->render('event/list.html.twig', ['events' => $events, 'user' => $user]);
     }
