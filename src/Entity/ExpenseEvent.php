@@ -57,13 +57,13 @@ class ExpenseEvent
     private $refundTollReturn;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Event")
+     * @ORM\ManyToOne(targetEntity="Event", inversedBy="expenseEvents")
      * @ORM\JoinColumn(name="event_id", referencedColumnName="id", nullable=false)
      */
     private $event;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="expenseEvents")
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $user;
