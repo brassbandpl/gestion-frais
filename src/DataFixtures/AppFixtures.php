@@ -18,11 +18,12 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        foreach ($this->getUserData() as [$username, $password, $email, $roles]) {
+        foreach ($this->getUserData() as [$username, $password, $email, $dateBegin, $roles]) {
             $user = new User();
             $user->setUsername($username);
             $user->setPassword($this->passwordEncoder->encodePassword($user, $password));
             $user->setEmail($email);
+            $user->setDateBegin($dateBegin);
             $user->setRoles($roles);
 
             $manager->persist($user);
@@ -50,8 +51,8 @@ class AppFixtures extends Fixture
     {
         return [
             // $userData = [$username, $password, $email, $roles];
-            ['toto_admin', 'pwd', 'toto_admin@bbpl.fr', ['ROLE_ADMIN']],
-            ['tata_user', 'pwd', 'tata_user@symfony.com', ['ROLE_USER']],
+            ['toto_admin', 'pwd', 'toto_admin@bbpl.fr', new \DateTime('2018-01-01'), ['ROLE_ADMIN']],
+            ['tata_user', 'pwd', 'tata_user@symfony.com', new \DateTime('2018-08-01'), ['ROLE_USER']],
         ];
     }
 

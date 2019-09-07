@@ -33,6 +33,16 @@ class User implements UserInterface, \Serializable
     private $password;
 
     /**
+     * @ORM\Column(type="date")
+     */
+    private $dateBegin;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $dateEnd;
+
+    /**
      * @ORM\Column(type="json")
      */
     private $roles;
@@ -137,5 +147,29 @@ class User implements UserInterface, \Serializable
     public function unserialize($serialized): void
     {
         [$this->id, $this->username, $this->password] = unserialize($serialized, ['allowed_classes' => false]);
+    }
+
+    public function getDateBegin(): ?\DateTimeInterface
+    {
+        return $this->dateBegin;
+    }
+
+    public function setDateBegin(\DateTimeInterface $dateBegin): self
+    {
+        $this->dateBegin = $dateBegin;
+
+        return $this;
+    }
+
+    public function getDateEnd(): ?\DateTimeInterface
+    {
+        return $this->dateEnd;
+    }
+
+    public function setDateEnd(\DateTimeInterface $dateEnd): self
+    {
+        $this->dateEnd = $dateEnd;
+
+        return $this;
     }
 }
