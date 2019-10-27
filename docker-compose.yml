@@ -2,6 +2,7 @@ version: '3'
 services:
   db:
     image: mysql:5.7
+    container_name: gestionfrais_db
     environment:
       MYSQL_ROOT_PASSWORD: my_secret_pw_shh
       MYSQL_DATABASE: gestionfrais
@@ -11,6 +12,7 @@ services:
       - "3306:3306"
   web:
     image: "gestionfrais:latest"
+    container_name: gestionfrais_web
     ports:
       - "8000:8000"
     volumes:
