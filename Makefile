@@ -24,3 +24,6 @@ fixtures: ## Load fixtures
 
 sf-update: ## Update Symfony
 	docker exec $(dockerCtnWeb) composer update "symfony/*"
+
+vendors-update: ## Update all of packages
+	docker exec $(dockerCtnWeb) composer update
