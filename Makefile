@@ -21,3 +21,6 @@ bdd: ## Update structure bdd
 
 fixtures: ## Load fixtures
 	docker exec $(dockerCtnWeb) php bin/console doctrine:fixtures:load
+
+sf-update: ## Update Symfony
+	docker exec $(dockerCtnWeb) composer update "symfony/*"
