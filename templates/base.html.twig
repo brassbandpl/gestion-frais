@@ -4,14 +4,14 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}BBPL - Gestion des frais{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="stylesheet" href="{{ asset('build/global.css') }}">
-        <link rel="stylesheet" href="{{ asset('build/main.css') }}">
-        <link rel="stylesheet" href="{{ asset('build/util.css') }}">
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
     </head>
     <body>
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
     </body>
-    <script src="{{ asset('build/js/app.js')}}"></script>
 </html>
