@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\ExpenseEvent;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\DataTransformer\NumberToLocalizedStringTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -17,9 +18,20 @@ class ExpenseEventType extends AbstractType
         $builder
             ->add('nbKmGo', IntegerType::class, ['required' => false,])
             ->add('nbKmReturn', IntegerType::class, ['required' => false,])
-            ->add('tollGo', NumberType::class, ['required' => false,])
-            ->add('tollReturn', NumberType::class, ['required' => false,])
-            //->add('event')
+            ->add('tollGo', NumberType::class, [
+                'required' => false, 
+                'scale' => 2, 
+                'html5' => true, 
+                'rounding_mode' => NumberToLocalizedStringTransformer::ROUND_HALF_EVEN,
+                'attr' => ['step' => 'any']
+            ])
+            ->add('tollReturn', NumberType::class, [
+                'required' => false, 
+                'scale' => 2, 
+                'html5' => true, 
+                'rounding_mode' => NumberToLocalizedStringTransformer::ROUND_HALF_EVEN,
+                'attr' => ['step' => 'any']
+            ])
             ->add('save', SubmitType::class, ['label' => 'Enregistrer'])
         ;
     }
