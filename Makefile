@@ -25,5 +25,11 @@ fixtures: ## Load fixtures
 sf-update: ## Update Symfony
 	docker exec $(dockerCtnWeb) composer update "symfony/*"
 
-vendors-update: ## Update all of packages
+vendors-update: ## Update all of vendors (composer)
 	docker exec $(dockerCtnWeb) composer update
+
+packages-update: ## Update all of packages (yarn)
+	docker exec $(dockerCtnWeb) yarn upgrade
+
+encore-dev-watch: ## Encore build dev watch
+	docker exec $(dockerCtnWeb) yarn encore dev
