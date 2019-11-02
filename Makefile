@@ -32,4 +32,4 @@ packages-update: ## Update all of packages (yarn)
 	docker exec $(dockerCtnWeb) yarn upgrade
 
 encore-dev-watch: ## Encore build dev watch
-	docker exec $(dockerCtnWeb) yarn encore dev
+	docker exec $(dockerCtnWeb) yarn encore dev --watch
