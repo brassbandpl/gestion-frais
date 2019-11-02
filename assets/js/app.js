@@ -14,4 +14,9 @@ require('../css/util.css');
 
 $(document).ready(function() {
     $('[data-toggle="popover"]').popover();
+    
+    $("form").submit(function(){
+      $("button[type='submit']").attr("disabled", true).html("Merci de patienter...");
+      return true;
+    })
 });
