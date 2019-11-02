@@ -7,6 +7,7 @@ RUN apt-get update && \
     php7.2-xml \
     php-mysql \
     php-mbstring \
+    php-zip \
     curl \
     && apt install -y git \
     && apt install -y nodejs npm \
@@ -17,11 +18,11 @@ RUN apt-get update && \
     && ln -s /usr/sbin/php-fpm7.2 /usr/local/bin/php-fpm \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+ENV COMPOSER_ALLOW_SUPERUSER=1
+
 WORKDIR /srv/app
 EXPOSE 8000
 
 COPY init.sh /srv/init.sh
-
-#RUN docker-php-ext-install -j$(nproc) pcntl
 
 CMD /srv/init.sh

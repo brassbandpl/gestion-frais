@@ -19,3 +19,6 @@ services:
       - .:/srv/app
     links:
       - db
+    depends_on:
+      - db
+    command: ["./docker/wait-for-it.sh", "db:3306", "--", "sh", "/srv/init.sh"]
