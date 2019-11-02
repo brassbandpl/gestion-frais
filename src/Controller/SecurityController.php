@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,6 +15,9 @@ class SecurityController extends Controller
      */
     public function login(AuthenticationUtils $helper): Response
     {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('event_list');
+        }
         return $this->render('Security/login.html.twig', [
             // dernier username saisi (si il y en a un)
             'last_username' => $helper->getLastUsername(),
