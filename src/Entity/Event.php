@@ -62,6 +62,12 @@ class Event
       */
     private $expenseEvents;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Period", inversedBy="events")
+     * @ORM\JoinColumn(name="period_id", referencedColumnName="id", nullable=false)
+     */
+    private $period;
+
     public function __construct()
     {
         $this->expenseEvents = new ArrayCollection();
@@ -196,6 +202,18 @@ class Event
     public function setClosed(bool $closed): self
     {
         $this->closed = $closed;
+
+        return $this;
+    }
+
+    public function getPeriod(): ?Period
+    {
+        return $this->period;
+    }
+
+    public function setPeriod(?Period $period): self
+    {
+        $this->period = $period;
 
         return $this;
     }
