@@ -2,6 +2,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Event;
+use App\Entity\Period;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -30,7 +31,7 @@ class AppFixtures extends Fixture
             $this->addReference($username, $user);
         }
 
-        foreach ($this->getEventData() as [$date, $type, $addressLabel, $address, $postalCode, $city ]) {
+        foreach ($this->getEventData($manager) as [$date, $type, $addressLabel, $address, $postalCode, $city, $period]) {
             $event = new Event();
             $event->setDate($date);
             $event->setType($type);
@@ -39,6 +40,7 @@ class AppFixtures extends Fixture
             $event->setPostalCode($postalCode);
             $event->setCity($city);
             $event->setClosed(false);
+            $event->setPeriod($period);
 
             $manager->persist($event);
             $this->addReference($date->format('Ymd'), $event);
@@ -56,17 +58,27 @@ class AppFixtures extends Fixture
         ];
     }
 
-    private function getEventData(): array
+    private function getEventData(ObjectManager $manager): array
     {
+        $period1 = new Period();
+        $period1->setDateStart(new \DateTime('2018-01-01'));
+        $period1->setDateEnd(new \DateTime('2018-05-31'));
+        $manager->persist($period1);
+
+        $period2 = new Period();
+        $period2->setDateStart(new \DateTime('2018-06-01'));
+        $period2->setDateEnd(new \DateTime('2019-03-31'));
+        $manager->persist($period2);
+
         return [
             // $userData = [$username, $password, $email, $roles];
-            [new \DateTime('2018-03-12'), 'repetition', 'montjean', 'a', '44490', 'Montjean'],
-            [new \DateTime('2018-03-19'), 'repetition', 'montjean', 'a', '44490', 'Montjean'],
-            [new \DateTime('2018-03-26'), 'repetition', 'montjean', 'a', '44490', 'Montjean'],
-            [new \DateTime('2018-04-02'), 'repetition', 'montjean', 'a', '44490', 'Montjean'],
-            [new \DateTime('2018-04-09'), 'repetition', 'montjean', 'a', '44490', 'Montjean'],
-            [new \DateTime('2018-08-27'), 'repetition', 'montjean', 'a', '44490', 'Montjean'],
-            [new \DateTime('2018-09-03'), 'repetition', 'montjean', 'a', '44490', 'Montjean'],
+            [new \DateTime('2018-03-12'), 'repetition', 'montjean', 'a', '44490', 'Montjean', $period1],
+            [new \DateTime('2018-03-19'), 'repetition', 'montjean', 'a', '44490', 'Montjean', $period1],
+            [new \DateTime('2018-03-26'), 'repetition', 'montjean', 'a', '44490', 'Montjean', $period1],
+            [new \DateTime('2018-04-02'), 'repetition', 'montjean', 'a', '44490', 'Montjean', $period1],
+            [new \DateTime('2018-04-09'), 'repetition', 'montjean', 'a', '44490', 'Montjean', $period1],
+            [new \DateTime('2018-08-27'), 'repetition', 'montjean', 'a', '44490', 'Montjean', $period2],
+            [new \DateTime('2018-09-03'), 'repetition', 'montjean', 'a', '44490', 'Montjean', $period2],
         ];
     }
 
