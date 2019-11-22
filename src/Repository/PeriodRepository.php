@@ -19,6 +19,23 @@ class PeriodRepository extends ServiceEntityRepository
         parent::__construct($registry, Period::class);
     }
 
+    public function findByDates($dateStart, $dateEnd) 
+    {
+        $queryBuilder = $this->createQueryBuilder('p');
+        if ($dateEnd === null) {
+            $queryBuilder->andWhere('p.dateEnd >= :dateStart');
+        } else {
+            $queryBuilder->andWhere('p.dateStart >= :dateStart and p.dateEnd <= :dateEnd');
+            $queryBuilder->orWhere('p.dateStart <= :dateStart and p.dateEnd >= :dateStart');
+            $queryBuilder->orWhere('p.dateStart <= :dateEnd and p.dateEnd >= :dateEnd');
+            $queryBuilder->setParameter('dateEnd', $dateEnd);
+        }
+        $queryBuilder->setParameter('dateStart', $dateStart);
+        $queryBuilder->orderBy('p.dateStart', 'DESC');
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
     // /**
     //  * @return Period[] Returns an array of Period objects
     //  */

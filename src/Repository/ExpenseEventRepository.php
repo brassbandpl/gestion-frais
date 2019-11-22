@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\ExpenseEvent;
+use App\Entity\Period;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -17,6 +19,20 @@ class ExpenseEventRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, ExpenseEvent::class);
+    }
+
+    public function findByUserAndPeriod(User $user, Period $period)
+    {
+        return $this->createQueryBuilder('e')
+            ->join('e.event', 'ev')
+            ->andWhere('ev.period = :period')
+            ->setParameter('period', $period)
+            ->andWhere('e.user = :user')
+            ->setParameter('user', $user)
+            ->orderBy('ev.date', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
 //    /**
