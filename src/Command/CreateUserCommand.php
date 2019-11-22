@@ -9,6 +9,8 @@
 
     class CreateUserCommand extends Command
     {
+        /** @var UserManager $userManager */
+        private $userManager;
 
         public function __construct(UserManager $userManager)
         {
@@ -32,11 +34,17 @@
                 ->addArgument('username', InputArgument::REQUIRED, 'User login')
                 ->addArgument('password', InputArgument::REQUIRED, 'User password')
                 ->addArgument('email', InputArgument::REQUIRED, 'User email')
+                ->addArgument('dateBegin', InputArgument::REQUIRED, 'Date begin')
             ;
         }
 
         protected function execute(InputInterface $input, OutputInterface $output)
         {
-            $this->userManager->create($input->getArgument('username'), $input->getArgument('password'), $input->getArgument('email'));
+            $this->userManager->create(
+                $input->getArgument('username'), 
+                $input->getArgument('password'), 
+                $input->getArgument('email'),
+                $input->getArgument('dateBegin')
+            );
         }
     }

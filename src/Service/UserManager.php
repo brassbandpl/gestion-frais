@@ -13,12 +13,13 @@ class UserManager
         $this->passwordEncoder = $passwordEncoder;
     }
 
-    public function create($username, $password, $email)
+    public function create($username, $password, $email, $dateBegin)
     {
         $user = new User();
         $user->setUsername($username);
         $user->setEmail($email);
         $user->setPassword($this->passwordEncoder->encodePassword($user, $password));
+        $user->setDateBegin(new \DateTime($dateBegin));
         $user->setRoles(['ROLE_USER']);
 
         $this->entityManager->persist($user);
