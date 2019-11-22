@@ -63,3 +63,10 @@ services:
         tags:
             - { name: doctrine.event_listener, event: prePersist }
             - { name: doctrine.event_listener, event: preUpdate }
+
+    admin.period:
+        class: App\Admin\PeriodAdmin
+        arguments: [~, App\Entity\Period, App\Controller\PeriodAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Période }
+        public: true

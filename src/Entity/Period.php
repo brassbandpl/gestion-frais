@@ -97,4 +97,9 @@ class Period
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->getDateStart()->format('d/m/Y').' - '.$this->getDateEnd()->format('d/m/Y');
+    }
 }
