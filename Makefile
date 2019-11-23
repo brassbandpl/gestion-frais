@@ -33,3 +33,6 @@ packages-update: ## Update all of packages (yarn)
 
 encore-dev-watch: ## Encore build dev watch
 	docker exec $(dockerCtnWeb) yarn encore dev --watch
+
+build-docker: ## Build docker images
+	cd docker && docker build -t gestionfrais .
