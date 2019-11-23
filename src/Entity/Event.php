@@ -217,4 +217,9 @@ class Event
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->getType().' - '.$this->getDate()->format('Y-m-d');
+    }
 }
