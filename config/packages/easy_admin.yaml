@@ -1,0 +1,16 @@
+easy_admin:
+    design:
+        menu:
+            - ExpenseEvent
+            - Event
+            - Period
+            - User
+            - { label: 'Back to app', route: 'event_list' }
+    entities:
+        # List the entity class name you want to manage
+        - App\Entity\Event
+        - App\Entity\ExpenseEvent
+        - App\Entity\User
+        - App\Entity\Period
+    user:
+        name_property_path: 'username'
