@@ -8,12 +8,12 @@ use App\Entity\User;
 use App\Form\ExpenseEventType;
 use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
-class EventController extends Controller
+class EventController extends AbstractController
 {
     /**
      * @Route("/event/list", name="event_list")
