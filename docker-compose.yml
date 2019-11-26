@@ -11,14 +11,24 @@ services:
     ports:
       - "3306:3306"
   web:
-    image: "gestionfrais:latest"
+    image: nginx:latest
     container_name: gestionfrais_web
     ports:
-      - "8000:8000"
+        - "8000:80"
+    volumes:
+        - .:/srv/app
+        - ./docker/site.conf:/etc/nginx/conf.d/site.conf
+    links:
+      - php
+    depends_on:
+      - php
+  php:
+    image: "gestionfraisphp:latest"
+    container_name: gestionfrais_php
     volumes:
       - .:/srv/app
     links:
       - db
     depends_on:
       - db
-    command: ["./docker/wait-for-it.sh", "db:3306", "--", "sh", "/srv/init.sh"]
+    entrypoint: /srv/app/docker/wait-for-it.sh db:3306 -- sh /srv/app/docker/init.sh

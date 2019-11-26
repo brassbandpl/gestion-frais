@@ -35,4 +35,4 @@ encore-dev-watch: ## Encore build dev watch
 	docker exec $(dockerCtnWeb) yarn encore dev --watch
 
 build-docker: ## Build docker images
-	cd docker && docker build -t gestionfrais .
+	cd docker/phpfpm && docker build -t gestionfraisphp .

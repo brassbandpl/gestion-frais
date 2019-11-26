@@ -2,9 +2,9 @@
 
 ## Builder l'image
 
-A exécuter dans le dossier docker
+A exécuter dans le dossier docker/phpfpm
 
-    docker build -t gestionfrais .
+    docker build -t gestionfraisphp .
 
 ## Exécuter l'application
 
