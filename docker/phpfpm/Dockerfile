@@ -8,6 +8,7 @@ RUN apt-get update \
     npm \
     unzip \
     libzip-dev \
+    git \
     && npm install -g npm@latest \
     && npm install -g yarn \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
