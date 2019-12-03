@@ -11,7 +11,7 @@
                 {% for event in events %}
                     {% if event.isDeclarable() %}
                         {% set hasEvent = true %}
-                        {{ include('list_item.html.twig', {event: event}) }}
+                        {{ include('event/list_item.html.twig', {event: event}) }}
                     {% endif %}
                 {% endfor %}
                 {% if not hasEvent %}
@@ -23,7 +23,7 @@
                 {% for event in events %}
                     {% if not event.isDeclarable() %}
                         {% set hasEvent = true %}
-                        {{ include('list_item.html.twig', {event: event}) }}
+                        {{ include('event/list_item.html.twig', {event: event}) }}
                     {% endif %}
                 {% endfor %}
                 {% if not hasEvent %}
