@@ -27,9 +27,11 @@ class ExpenseEventCalculator
         $refundTollReturn = $expenseEvent->getTollReturn();
 
         if ($expenseEvent->getEvent()->getType() === Event::TYPE_REPETITION) {
+            $refundKmGo = 0;
             if ($expenseEvent->getNbKmGo()-$this->nbKmNotRefund > 0) {
                 $refundKmGo = $this->euroPerKm * ($expenseEvent->getNbKmGo()-$this->nbKmNotRefund);
             }
+            $refundKmReturn = 0;
             if ($expenseEvent->getNbKmReturn()-$this->nbKmNotRefund > 0) {
                 $refundKmReturn = $this->euroPerKm * ($expenseEvent->getNbKmReturn()-$this->nbKmNotRefund);
             }
