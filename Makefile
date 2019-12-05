@@ -37,3 +37,6 @@ encore-dev-watch: ## Encore build dev watch
 
 build-docker: ## Build docker images
 	cd docker/phpfpm && docker build -t gestionfraisphp .
+
+ut: ## Run unit tests
+	docker exec $(dockerCtnPhp) bin/phpunit
