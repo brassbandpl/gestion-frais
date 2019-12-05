@@ -1,4 +1,5 @@
 dockerCtnWeb=gestionfrais_web
+dockerCtnPhp=gestionfrais_php
 
 .DEFAULT_GOAL:=help
 
@@ -17,22 +18,22 @@ logs: ## Display docker logs in real-time
 	docker-compose logs -f
 
 bdd: ## Update structure bdd
-	docker exec $(dockerCtnWeb) php bin/console doctrine:schema:update --force
+	docker exec $(dockerCtnPhp) php bin/console doctrine:schema:update --force
 
 fixtures: ## Load fixtures
-	docker exec $(dockerCtnWeb) php bin/console doctrine:fixtures:load
+	docker exec $(dockerCtnPhp) php bin/console doctrine:fixtures:load
 
 sf-update: ## Update Symfony
-	docker exec $(dockerCtnWeb) composer update "symfony/*"
+	docker exec $(dockerCtnPhp) composer update "symfony/*"
 
 vendors-update: ## Update all of vendors (composer)
-	docker exec $(dockerCtnWeb) composer update
+	docker exec $(dockerCtnPhp) composer update
 
 packages-update: ## Update all of packages (yarn)
-	docker exec $(dockerCtnWeb) yarn upgrade
+	docker exec $(dockerCtnPhp) yarn upgrade
 
 encore-dev-watch: ## Encore build dev watch
-	docker exec $(dockerCtnWeb) yarn encore dev --watch
+	docker exec $(dockerCtnPhp) yarn encore dev --watch
 
 build-docker: ## Build docker images
 	cd docker/phpfpm && docker build -t gestionfraisphp .
