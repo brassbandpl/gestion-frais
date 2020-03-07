@@ -21,6 +21,8 @@ easy_admin:
                     - addressLabel
                     - closed
                     - period
+                sort: ['date', DESC]
+                filters: ['period']
             form:  # <-- 'form' is applied to both 'new' and 'edit' views
                 fields:
                     - date
@@ -37,7 +39,9 @@ easy_admin:
                 fields:
                     - id
                     - user.username
-                    - { property: "event.date", type: "date"}
+                    - { property: 'event.date', type: 'date'}
+                sort: ['event.date', DESC]
+                filters: ['event', 'user']
         User:
             class: App\Entity\User
         Period:
