@@ -14,6 +14,7 @@ class Event
 {
     const TYPE_REPETITION = 'repetition';
     const TYPE_CONCERT = 'concert';
+    const TYPE_REUNION = 'reunion';
 
     /**
      * @ORM\Id()
