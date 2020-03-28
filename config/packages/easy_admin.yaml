@@ -26,7 +26,13 @@ easy_admin:
             form:  # <-- 'form' is applied to both 'new' and 'edit' views
                 fields:
                     - date
-                    - type
+                    -   property: 'type'
+                        type: 'choice'
+                        type_options:
+                            mapped: true
+                            expanded: false
+                            multiple: false
+                            choices: { 'Répétition': 'repetition', 'Concert': 'concert', 'Réunion': 'reunion' }
                     - addressLabel
                     - address
                     - postalCode
