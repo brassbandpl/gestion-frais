@@ -1,6 +1,14 @@
 <div class="card w-100 mb-2">
     <div class="card-body">
-        <h5 class="card-title">{% if event.type == 'repetition' %} Répétition {% else %} Concert {% endif %} du {{ event.date|date('d/m/Y') }}</h5>
+        <h5 class="card-title">
+            {% if event.type == 'repetition' %} 
+                Répétition
+            {% elseif event.type == 'concert' %} 
+                Concert
+            {% else %}
+                Réunion
+            {% endif %} 
+             du {{ event.date|date('d/m/Y') }}</h5>
         {% if event.addressLabel %}
             <h6 class="card-subtitle mb-2 text-muted"><i class="fas fa-map-marker-alt"></i> {{event.addressLabel}}, {{event.address}}, {{event.postalCode}}, {{event.city}}</h6>
         {% endif %}
