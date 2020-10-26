@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,29 +12,25 @@ class SecurityController extends AbstractController
     /**
      * @Route("/login", name="security_login")
      */
-    public function login(AuthenticationUtils $helper): Response
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('event_list');
         }
-        return $this->render('Security/login.html.twig', [
-            // dernier username saisi (si il y en a un)
-            'last_username' => $helper->getLastUsername(),
-            // La derniere erreur de connexion (si il y en a une)
-            'error' => $helper->getLastAuthenticationError(),
-        ]);
+
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
- 
+
     /**
-     * La route pour se deconnecter.
-     * 
-     * Mais celle ci ne doit jamais être executé car symfony l'interceptera avant.
-     *
-     *
      * @Route("/logout", name="security_logout")
      */
-    public function logout(): void
+    public function logout()
     {
-        throw new \Exception('This should never be reached!');
+        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 }
