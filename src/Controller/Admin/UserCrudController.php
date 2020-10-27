@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Service\UserManager;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
@@ -11,6 +13,14 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class UserCrudController extends AbstractCrudController
 {
+    /** @var UserManager $userManager */
+    private $userManager;
+
+    public function __construct(UserManager $userManager)
+    {
+        $this->userManager = $userManager;
+        
+    }
     public static function getEntityFqcn(): string
     {
         return User::class;
@@ -28,7 +38,6 @@ class UserCrudController extends AbstractCrudController
     {
         $username = TextField::new('username');
         $email = TextField::new('email');
-        $password = TextField::new('password');
         $dateBegin = DateField::new('dateBegin');
         $dateEnd = DateField::new('dateEnd');
         $id = IntegerField::new('id', 'ID');
@@ -37,11 +46,17 @@ class UserCrudController extends AbstractCrudController
         if (Crud::PAGE_INDEX === $pageName) {
             return [$id, $username, $email, $dateBegin, $dateEnd];
         } elseif (Crud::PAGE_DETAIL === $pageName) {
-            return [$id, $username, $email, $password, $dateBegin, $dateEnd, $roles];
+            return [$id, $username, $email, $dateBegin, $dateEnd, $roles];
         } elseif (Crud::PAGE_NEW === $pageName) {
-            return [$username, $email, $password, $dateBegin, $dateEnd];
+            return [$username, $email, $dateBegin];
         } elseif (Crud::PAGE_EDIT === $pageName) {
-            return [$username, $email, $password, $dateBegin, $dateEnd];
+            return [$username, $email, $dateBegin, $dateEnd];
         }
+    }
+
+    public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    {
+        $password = random_bytes(18);
+        $this->userManager->create($entityInstance->getUsername(), $password, $entityInstance->getEmail(), $entityInstance->getDateBegin()->format('Y-m-d'));
     }
 }
