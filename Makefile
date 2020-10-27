@@ -15,11 +15,20 @@ stop: ## Stop symfony server and db container
 
 restart: stop start ## Stop and start all containers
 
+install-dev: ## Install dev environment
+	symfony console doctrine:database:drop --force
+	symfony console doctrine:database:create
+	make migration-migrate
+	make fixtures
+
 docker-logs: ## Display docker logs in real-time
 	docker-compose logs -f
 
-bdd: ## Update structure bdd
-	symfony php bin/console doctrine:schema:update --force
+migration-diff: ## Generate migration
+	symfony console doctrine:migrations:diff
+
+migration-migrate: ## Generate migration
+	symfony console doctrine:migrations:migrate
 
 fixtures: ## Load fixtures
 	symfony php bin/console doctrine:fixtures:load
