@@ -23,9 +23,9 @@ final class Version20191111145219 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('CREATE TABLE period (id INT AUTO_INCREMENT NOT NULL, date_start DATE NOT NULL, date_end DATE NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
-        $eventMin = $this->connection->fetchAssoc('SELECT min(date) as date FROM event');
-        $eventMax = $this->connection->fetchAssoc('SELECT max(date) as date FROM event');
-        if (isset($eventMin) && isset($eventMax)) {
+        $eventMin = $this->connection->fetchAssociative('SELECT min(date) as date FROM event');
+        $eventMax = $this->connection->fetchAssociative('SELECT max(date) as date FROM event');
+        if ($eventMin['date'] !== null && $eventMax['date'] !== null) {
             $this->addSql('INSERT INTO period (date_start, date_end) VALUES (\''.$eventMin['date'].'\', \''.$eventMax['date'].'\')');
             $this->addSql('ALTER TABLE event ADD period_id INT NULL');
             $this->addSql('UPDATE event SET period_id = 1');
