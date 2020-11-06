@@ -50,6 +50,7 @@ security:
         # Les regles de securité
         # Là dans ce cas seul les utilisateurs ayant le rôle ROLE_ADMIN
         # peuvent acceder à toutes les pages commençant par /admin
+        - { path: ^/reset-password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: '^/admin', roles: [ROLE_ADMIN] }
         - { path: '^/', roles: [ROLE_USER, ROLE_ADMIN] }
