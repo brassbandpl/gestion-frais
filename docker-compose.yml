@@ -10,3 +10,9 @@ services:
       MYSQL_PASSWORD: devpass
     ports:
       - "3306:3306"
+  mailer:
+    image: sj26/mailcatcher
+    container_name: gestionfrais_mailcatcher
+    ports:
+      - "1080:1080"
+      - "1025:1025"
