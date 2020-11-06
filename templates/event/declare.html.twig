@@ -7,8 +7,7 @@
         <main role="main">
             <h5 class="card-title">Répétition du {{ event.date|date('d/m/Y') }}</h5>
 
-            {% form_theme form 'bootstrap_4_layout.html.twig' %}
-            {{ form_start(form, {attr: {class: 'my-form-class'} }) }}
+            {{ form_start(form) }}
                 <fieldset>
                     <!-- Form Name -->
                     <legend>Trajet Aller</legend>
