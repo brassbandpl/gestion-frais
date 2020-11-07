@@ -33,6 +33,9 @@ vendors-update: ## Update all of vendors (composer)
 packages-update: ## Update all of packages (yarn)
 	docker-compose exec php yarn upgrade
 
+encore-dev: ## Encore build dev
+	docker-compose exec php yarn encore dev
+
 encore-dev-watch: ## Encore build dev watch
 	docker-compose exec php yarn encore dev --watch
 
