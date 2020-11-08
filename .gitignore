@@ -20,3 +20,9 @@ yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
 /.vscode
+
+#cypress folders
+cypress/results/*
+cypress/reports/*
+cypress/screenshots/*
+cypress/videos/*
