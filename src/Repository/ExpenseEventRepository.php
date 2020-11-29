@@ -6,7 +6,7 @@ use App\Entity\ExpenseEvent;
 use App\Entity\Period;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method ExpenseEvent|null find($id, $lockMode = null, $lockVersion = null)
