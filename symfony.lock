@@ -26,6 +26,9 @@
     "doctrine/dbal": {
         "version": "v2.10.0"
     },
+    "doctrine/deprecations": {
+        "version": "v0.5.3"
+    },
     "doctrine/doctrine-bundle": {
         "version": "2.0",
         "recipe": {
@@ -102,6 +105,9 @@
     "egulias/email-validator": {
         "version": "2.1.11"
     },
+    "friendsofphp/proxy-manager-lts": {
+        "version": "v1.0.3"
+    },
     "laminas/laminas-code": {
         "version": "3.5.0"
     },
@@ -119,9 +125,6 @@
     },
     "ocramius/package-versions": {
         "version": "1.5.1"
-    },
-    "ocramius/proxy-manager": {
-        "version": "2.2.3"
     },
     "paragonie/random_compat": {
         "version": "v9.99.99"
@@ -557,9 +560,6 @@
     },
     "twig/twig": {
         "version": "v3.0.0"
-    },
-    "webimpress/safe-writer": {
-        "version": "2.1.0"
     },
     "webmozart/assert": {
         "version": "1.6.0"
