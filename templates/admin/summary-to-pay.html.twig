@@ -17,11 +17,11 @@
             {% for expenseEventTotal in expenseEventTotals %}
                 <tr>
                     <td>{{ expenseEventTotal.username }}</td>
-                    <td>{{ expenseEventTotal.totalRefundKmGo }}</td>
-                    <td>{{ expenseEventTotal.totalRefundKmReturn }}</td>
-                    <td>{{ expenseEventTotal.totalRefundTollGo }}</td>
-                    <td>{{ expenseEventTotal.totalRefundTollReturn }}</td>
-                    <td>{{ expenseEventTotal.totalRefund }}</td>
+                    <td>{{ expenseEventTotal.totalRefundKmGo|format_currency('EUR', {rounding_mode: 'floor'}) }}</td>
+                    <td>{{ expenseEventTotal.totalRefundKmReturn|format_currency('EUR', {rounding_mode: 'floor'}) }}</td>
+                    <td>{{ expenseEventTotal.totalRefundTollGo|format_currency('EUR', {rounding_mode: 'floor'}) }}</td>
+                    <td>{{ expenseEventTotal.totalRefundTollReturn|format_currency('EUR', {rounding_mode: 'floor'}) }}</td>
+                    <td>{{ expenseEventTotal.totalRefund|format_currency('EUR', {rounding_mode: 'floor'}) }}</td>
                 </tr>
             {% endfor %}
         </tbody>
