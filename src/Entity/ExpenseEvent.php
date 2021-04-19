@@ -57,6 +57,11 @@ class ExpenseEvent
     private $refundTollReturn;
 
     /**
+     * @ORM\Column(type="boolean", options={"default": false})
+     */
+    private $paied;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Event", inversedBy="expenseEvents")
      * @ORM\JoinColumn(name="event_id", referencedColumnName="id", nullable=false)
      */
@@ -67,6 +72,11 @@ class ExpenseEvent
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $user;
+
+    public function __construct()
+    {
+        $this->paied = false;
+    }
 
     public function getId()
     {
@@ -196,5 +206,17 @@ class ExpenseEvent
     public function getTotalRefund(): ?float
     {
         return $this->getRefundKmGo() + $this->getRefundKmReturn() + $this->getRefundTollGo() + $this->getRefundTollReturn();
+    }
+
+    public function setPaied(bool $paied): self
+    {
+        $this->paied = $paied;
+
+        return $this;
+    }
+
+    public function getPaied(): bool
+    {
+        return $this->paied;
     }
 }

@@ -7,6 +7,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
@@ -50,15 +51,16 @@ class ExpenseEventCrudController extends AbstractCrudController
         $id = IntegerField::new('id', 'ID');
         $userUsername = TextareaField::new('user.username');
         $eventDate = DateField::new('event.date');
+        $paied = BooleanField::new('paied');
 
         if (Crud::PAGE_INDEX === $pageName) {
             return [$id, $userUsername, $eventDate];
         } elseif (Crud::PAGE_DETAIL === $pageName) {
-            return [$id, $nbKmGo, $nbKmReturn, $tollGo, $tollReturn, $refundKmGo, $refundKmReturn, $refundTollGo, $refundTollReturn, $event, $user];
+            return [$id, $nbKmGo, $nbKmReturn, $tollGo, $tollReturn, $refundKmGo, $refundKmReturn, $refundTollGo, $refundTollReturn, $paied, $event, $user];
         } elseif (Crud::PAGE_NEW === $pageName) {
             return [$nbKmGo, $nbKmReturn, $tollGo, $tollReturn, $refundKmGo, $refundKmReturn, $refundTollGo, $refundTollReturn, $event, $user];
         } elseif (Crud::PAGE_EDIT === $pageName) {
-            return [$nbKmGo, $nbKmReturn, $tollGo, $tollReturn, $refundKmGo, $refundKmReturn, $refundTollGo, $refundTollReturn, $event, $user];
+            return [$nbKmGo, $nbKmReturn, $tollGo, $tollReturn, $refundKmGo, $refundKmReturn, $refundTollGo, $refundTollReturn, $paied, $event, $user];
         }
     }
 }
