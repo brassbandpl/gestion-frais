@@ -45,7 +45,7 @@ class ExpenseEventRepository extends ServiceEntityRepository
                 SUM(e.refundKmReturn) as totalRefundKmReturn,
                 SUM(e.refundTollGo) as totalRefundTollGo,
                 SUM(e.refundTollReturn) as totalRefundTollReturn,
-                SUM(e.refundKmGo) + SUM(e.refundKmReturn) + SUM(e.refundTollGo) + SUM(e.refundTollReturn) as totalRefund
+                SUM(e.refundKmGo + e.refundKmReturn + e.refundTollGo + e.refundTollReturn) as totalRefund
             ')
             ->andWhere('e.paied = false')
             ->groupBy('u.username')
