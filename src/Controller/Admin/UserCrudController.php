@@ -3,10 +3,12 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Form\Admin\UserRolesType;
 use App\Service\UserManager;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -41,7 +43,9 @@ class UserCrudController extends AbstractCrudController
         $dateBegin = DateField::new('dateBegin');
         $dateEnd = DateField::new('dateEnd');
         $id = IntegerField::new('id', 'ID');
-        $roles = TextField::new('roles');
+        $roles = ChoiceField::new('roles');
+        $roles->setFormType(UserRolesType::class);
+        $roles->setChoices(UserRolesType::VALID_ROLES);
 
         if (Crud::PAGE_INDEX === $pageName) {
             return [$id, $username, $email, $dateBegin, $dateEnd];
@@ -50,7 +54,7 @@ class UserCrudController extends AbstractCrudController
         } elseif (Crud::PAGE_NEW === $pageName) {
             return [$username, $email, $dateBegin];
         } elseif (Crud::PAGE_EDIT === $pageName) {
-            return [$username, $email, $dateBegin, $dateEnd];
+            return [$username, $email, $dateBegin, $dateEnd, $roles];
         }
     }
 
