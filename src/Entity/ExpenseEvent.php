@@ -37,22 +37,22 @@ class ExpenseEvent
     private $tollReturn;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="float", options={"default": 0})
      */
     private $refundKmGo;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="float", options={"default": 0})
      */
     private $refundKmReturn;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="float", options={"default": 0})
      */
     private $refundTollGo;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="float", options={"default": 0})
      */
     private $refundTollReturn;
 
@@ -75,6 +75,10 @@ class ExpenseEvent
 
     public function __construct()
     {
+        $this->refundKmGo = 0;
+        $this->refundKmReturn = 0;
+        $this->refundTollGo = 0;
+        $this->refundTollReturn = 0;
         $this->paied = false;
     }
 
