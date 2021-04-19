@@ -35,6 +35,23 @@ class ExpenseEventRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findNotPaidTotolRefundsGroupByUser()
+    {
+        return $this->createQueryBuilder('e')
+            ->join('e.user', 'u')
+            ->select('
+                u.username, 
+                SUM(e.refundKmGo) as totalRefundKmGo,
+                SUM(e.refundKmReturn) as totalRefundKmReturn,
+                SUM(e.refundTollGo) as totalRefundTollGo,
+                SUM(e.refundTollReturn) as totalRefundTollReturn,
+                SUM(e.refundKmGo) + SUM(e.refundKmReturn) + SUM(e.refundTollGo) + SUM(e.refundTollReturn) as totalRefund
+            ')
+            ->andWhere('e.paied = false')
+            ->groupBy('u.username')
+            ->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return ExpenseEvent[] Returns an array of ExpenseEvent objects
 //     */

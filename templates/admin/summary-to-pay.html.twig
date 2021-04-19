@@ -1,0 +1,29 @@
+{% extends "@EasyAdmin/page/content.html.twig" %}
+
+{% block page_content %}
+    <table class="table datagrid with-rounded-top with-rounded-bottom">
+        <thead>
+            <tr>
+                <th>Membre</th>
+                <th>KM Aller</th>
+                <th>KM Retour</th>
+                <th>Péage Aller</th>
+                <th>Péage Retour</th>
+                <th>TOTAL</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for expenseEventTotal in expenseEventTotals %}
+                <tr>
+                    <td>{{ expenseEventTotal.username }}</td>
+                    <td>{{ expenseEventTotal.totalRefundKmGo }}</td>
+                    <td>{{ expenseEventTotal.totalRefundKmReturn }}</td>
+                    <td>{{ expenseEventTotal.totalRefundTollGo }}</td>
+                    <td>{{ expenseEventTotal.totalRefundTollReturn }}</td>
+                    <td>{{ expenseEventTotal.totalRefund }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
