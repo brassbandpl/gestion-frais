@@ -23,8 +23,8 @@ class ExpenseEventCalculator
     {
         $refundKmGo = $expenseEvent->getNbKmGo() > 0 ? $this->euroPerKm * $expenseEvent->getNbKmGo() : 0;
         $refundKmReturn = $expenseEvent->getNbKmReturn() > 0 ? $this->euroPerKm * $expenseEvent->getNbKmReturn() : 0;
-        $refundTollGo = $expenseEvent->getTollGo();
-        $refundTollReturn = $expenseEvent->getTollReturn();
+        $refundTollGo = $expenseEvent->getTollGo() ?? 0;
+        $refundTollReturn = $expenseEvent->getTollReturn() ?? 0;
 
         if ($expenseEvent->getEvent()->getType() === Event::TYPE_REPETITION) {
             $refundKmGo = 0;
@@ -35,8 +35,8 @@ class ExpenseEventCalculator
             if ($expenseEvent->getNbKmReturn()-$this->nbKmNotRefund > 0) {
                 $refundKmReturn = $this->euroPerKm * ($expenseEvent->getNbKmReturn()-$this->nbKmNotRefund);
             }
-            $refundTollGo = $this->isTollGoRefunded ? $expenseEvent->getTollGo() : 0;
-            $refundTollReturn = $this->isTollReturnRefunded ? $expenseEvent->getTollReturn() : 0;
+            $refundTollGo = $this->isTollGoRefunded ? $refundTollGo : 0;
+            $refundTollReturn = $this->isTollReturnRefunded ? $refundTollReturn : 0;
         }
         
         $expenseEvent->setRefundKmGo($refundKmGo);
