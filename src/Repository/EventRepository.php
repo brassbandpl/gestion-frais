@@ -23,7 +23,7 @@ class EventRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder('event');
         $query->andWhere('event.closed = false');
-        $query->andWhere('event.date <= :date');
+        $query->andWhere('event.dateTimeStart <= :date');
         $query->setParameter('date', $date);
 
         return $query->getQuery()->getResult();
@@ -33,13 +33,13 @@ class EventRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder('event');
         $query->andWhere('event.closed = false');
-        $query->andWhere('event.date >= :dateBegin');
+        $query->andWhere('event.dateTimeStart >= :dateBegin');
         $query->setParameter('dateBegin', $dateBegin);
         if($dateEnd){
-            $query->andWhere('event.date <= :dateEnd');
+            $query->andWhere('event.dateTimeStart <= :dateEnd');
             $query->setParameter('dateEnd', $dateEnd);
         }
-        $query->orderBy('event.date', 'ASC');
+        $query->orderBy('event.dateTimeStart', 'ASC');
 
         return $query->getQuery()->getResult();
     }
@@ -47,7 +47,7 @@ class EventRepository extends ServiceEntityRepository
     public function findBySinceDate(\DateTimeInterface $date): iterable
     {
         $query = $this->createQueryBuilder('event');
-        $query->andWhere('event.date >= :date');
+        $query->andWhere('event.dateTimeStart >= :date');
         $query->setParameter('date', $date);
 
         return $query->getQuery()->getResult();

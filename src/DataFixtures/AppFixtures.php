@@ -33,7 +33,7 @@ class AppFixtures extends Fixture
 
         foreach ($this->getEventData($manager) as [$date, $type, $addressLabel, $address, $postalCode, $city, $period]) {
             $event = new Event();
-            $event->setDate($date);
+            $event->setDateTimeStart($date);
             $event->setType($type);
             $event->setAddressLabel($addressLabel);
             $event->setAddress($address);

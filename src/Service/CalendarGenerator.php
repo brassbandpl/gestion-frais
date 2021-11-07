@@ -36,20 +36,20 @@ class CalendarGenerator
         $events = [];
         foreach($databaseEvents as $event) {
             $summary = '';
-            $date = $event->getDate();
             switch ($event->getType()) {
                 case EntityEvent::TYPE_REPETITION:
                     $summary = 'BBPL - Répétition';
-                    $dateBegin = new DateTimeImmutable($date->format('Y-m-d 20:30'));
-                    $dateEnd = new DateTimeImmutable($date->format('Y-m-d 22:30'));
-                    $occurence = new TimeSpan(new DateTime($dateBegin, true), new DateTime($dateEnd, true));
                     break;
                 case EntityEvent::TYPE_CONCERT:
                     $summary = 'BBPL - Concert';
-                    $occurence = new SingleDay(new Date($date));
                     break;
                 default:
                     continue;
+            }
+            if ($event->isAllDay() || $event->getDateTimeEnd() === null) {
+                $occurence = new SingleDay(new Date($event->getDateTimeStart()));
+            } else {
+                $occurence = new TimeSpan(new DateTime($event->getDateTimeStart(), true), new DateTime($event->getDateTimeEnd(), true));
             }
             $events[] = (new Event())
                 ->setSummary($summary)

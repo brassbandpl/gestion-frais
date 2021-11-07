@@ -24,9 +24,19 @@ class Event
     private $id;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
-    private $date;
+    private $dateTimeStart;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateTimeEnd;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isAllDay = false;
 
     /**
      * @ORM\Column(type="string", length=50)
@@ -79,14 +89,38 @@ class Event
         return $this->id;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDateTimeStart(): ?\DateTimeInterface
     {
-        return $this->date;
+        return $this->dateTimeStart;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDateTimeStart(\DateTimeInterface $dateTimeStart): self
     {
-        $this->date = $date;
+        $this->dateTimeStart = $dateTimeStart;
+
+        return $this;
+    }
+
+    public function getDateTimeEnd(): ?\DateTimeInterface
+    {
+        return $this->dateTimeEnd;
+    }
+
+    public function setDateTimeEnd(?\DateTimeInterface $dateTimeEnd): self
+    {
+        $this->dateTimeEnd = $dateTimeEnd;
+
+        return $this;
+    }
+
+    public function isAllDay(): bool
+    {
+        return $this->isAllDay;
+    }
+
+    public function setIsAllDay(bool $isAllDay): self
+    {
+        $this->isAllDay = $isAllDay;
 
         return $this;
     }
@@ -105,7 +139,7 @@ class Event
 
     public function isDeclarable(): bool
     {
-        return $this->date < new \DateTime();
+        return $this->dateTimeStart < new \DateTime();
     }
 
     public function getAddressLabel(): ?string
@@ -221,6 +255,6 @@ class Event
 
     public function __toString()
     {
-        return $this->getType().' - '.$this->getDate()->format('Y-m-d');
+        return $this->getType().' - '.$this->getDateTimeStart()->format('Y-m-d');
     }
 }

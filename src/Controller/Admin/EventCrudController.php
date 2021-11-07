@@ -7,10 +7,13 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
 
 class EventCrudController extends AbstractCrudController
@@ -36,7 +39,9 @@ class EventCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        $date = DateField::new('date');
+        $dateTimeStart = DateTimeField::new('dateTimeStart');
+        $dateTimeEnd = DateTimeField::new('dateTimeEnd');
+        $isAllDay = BooleanField::new('isAllDay');
         $type = TextField::new('type');
         $addressLabel = TextField::new('addressLabel');
         $address = TextField::new('address');
@@ -48,13 +53,13 @@ class EventCrudController extends AbstractCrudController
         $expenseEvents = AssociationField::new('expenseEvents');
 
         if (Crud::PAGE_INDEX === $pageName) {
-            return [$date, $type, $addressLabel, $closed, $period];
+            return [$dateTimeStart, $dateTimeEnd, $type, $addressLabel, $closed, $period];
         } elseif (Crud::PAGE_DETAIL === $pageName) {
-            return [$id, $date, $type, $addressLabel, $address, $postalCode, $city, $closed, $expenseEvents, $period];
+            return [$id, $dateTimeStart, $dateTimeEnd, $type, $addressLabel, $address, $postalCode, $city, $closed, $expenseEvents, $period];
         } elseif (Crud::PAGE_NEW === $pageName) {
-            return [$date, $type, $addressLabel, $address, $postalCode, $city, $closed, $period];
+            return [$dateTimeStart, $dateTimeEnd, $isAllDay, $type, $addressLabel, $address, $postalCode, $city, $closed, $period];
         } elseif (Crud::PAGE_EDIT === $pageName) {
-            return [$date, $type, $addressLabel, $address, $postalCode, $city, $closed, $period];
+            return [$dateTimeStart, $dateTimeEnd, $isAllDay, $type, $addressLabel, $address, $postalCode, $city, $closed, $period];
         }
     }
 }

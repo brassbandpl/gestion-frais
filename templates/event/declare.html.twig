@@ -3,7 +3,7 @@
 {% block body %}
     <div class="container-fluid">
         <main role="main">
-            <h5 class="card-title">Répétition du {{ event.date|date('d/m/Y') }}</h5>
+            <h5 class="card-title">Répétition du {{ event.dateTimeStart|date('d/m/Y') }}</h5>
 
             {{ form_start(form) }}
                 <fieldset>
