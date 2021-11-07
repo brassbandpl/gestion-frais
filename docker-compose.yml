@@ -36,9 +36,3 @@ services:
     depends_on:
       - db
     entrypoint: /srv/app/docker/wait-for-it.sh db:3306 -- sh /srv/app/docker/init.sh
-  mailer:
-    image: sj26/mailcatcher
-    container_name: gestionfrais_mailcatcher
-    ports:
-      - "1080:1080"
-      - "1025:1025"

@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+###> symfony/mailer ###
+  mailer:
+    image: schickling/mailcatcher
+    container_name: gestionfrais_mailcatcher
+    ports:
+      - "1080:1080"
+      - "1025:1025"
+###< symfony/mailer ###
