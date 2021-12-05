@@ -29,7 +29,7 @@ class ExpenseEventRepository extends ServiceEntityRepository
             ->setParameter('period', $period)
             ->andWhere('e.user = :user')
             ->setParameter('user', $user)
-            ->orderBy('ev.date', 'DESC')
+            ->orderBy('ev.dateTimeStart', 'DESC')
             ->getQuery()
             ->getResult()
         ;

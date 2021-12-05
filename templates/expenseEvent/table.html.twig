@@ -23,7 +23,7 @@
     <tbody>
         {% for expenseEvent in expenseEvents %}
             <tr>
-                <th scope="row">{{ expenseEvent.event.date|date('d/m/Y') }}</th>
+                <th scope="row">{{ expenseEvent.event.dateTimeStart|date('d/m/Y') }}</th>
                 <td>{{expenseEvent.nbKmGo}} km</td>
                 <td>{{expenseEvent.tollGo}} €</td>
                 <td>{{expenseEvent.nbKmReturn}} km</td>
