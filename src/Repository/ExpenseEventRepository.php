@@ -35,10 +35,11 @@ class ExpenseEventRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findNotPaidTotolRefundsGroupByUser()
+    public function findNotPaidTotolRefundsGroupByUser(?Period $period = null)
     {
-        return $this->createQueryBuilder('e')
+        $qb = $this->createQueryBuilder('e')
             ->join('e.user', 'u')
+            ->join('e.event', 'ev')
             ->select('
                 u.username, 
                 SUM(e.refundKmGo) as totalRefundKmGo,
@@ -48,8 +49,14 @@ class ExpenseEventRepository extends ServiceEntityRepository
                 SUM(e.refundKmGo + e.refundKmReturn + e.refundTollGo + e.refundTollReturn) as totalRefund
             ')
             ->andWhere('e.paied = false')
-            ->groupBy('u.username')
-            ->getQuery()->getResult();
+            ->groupBy('u.username');
+        
+        if ($period !== null) {
+            $qb->andWhere('ev.period = :period');
+            $qb->setParameter('period', $period);
+        }
+
+        return $qb->getQuery()->getResult();
     }
 
 //    /**

@@ -11,6 +11,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -21,9 +22,15 @@ class DashboardController extends AbstractDashboardController
      */
     private $em;
 
-    public function __construct(EntityManagerInterface $em)
+    /**
+     * @var ReqestStack
+     */
+    private $requestStack;
+
+    public function __construct(EntityManagerInterface $em, RequestStack $requestStack)
     {
         $this->em = $em;
+        $this->requestStack = $requestStack;
     }
 
     /**
@@ -44,14 +51,29 @@ class DashboardController extends AbstractDashboardController
         // you can also render some template to display a proper Dashboard
         // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
         
+        $periodRepository = $this->em->getRepository(Period::class);
+
+        $request = $this->requestStack->getCurrentRequest();
+        $periodId = $request->query->get('period', null);
+        $period = null;
+        if ($periodId !== null) {
+            $period = $periodRepository->find($periodId);
+        }
+
         /** @var ExpenseEventRepository $expenseEventRepository */
         $expenseEventRepository = $this->em->getRepository(ExpenseEvent::class);
-        $expenseEventTotals = $expenseEventRepository->findNotPaidTotolRefundsGroupByUser();;
+        $expenseEventTotals = $expenseEventRepository->findNotPaidTotolRefundsGroupByUser($period);
+
+        $periodRepository = $this->em->getRepository(Period::class);
+        $periods = $periodRepository->findAll();
+
 
         return $this->render(
             'admin/summary-to-pay.html.twig',
             [
-                'expenseEventTotals' => $expenseEventTotals
+                'expenseEventTotals' => $expenseEventTotals,
+                'periods' => $periods,
+                'periodSelected' => $period,
             ]
         );
     }

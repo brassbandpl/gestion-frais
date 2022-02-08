@@ -21,4 +21,10 @@ $(document).ready(function() {
       $("button[type='submit']").attr("disabled", true).html("Merci de patienter...");
       return true;
     })
+
+    $("#select-period").change(function() {
+      var queryParams = new URLSearchParams(window.location.search);
+      queryParams.set('period', $("#select-period").val());
+      window.location.search = queryParams.toString();
+    });
 });
