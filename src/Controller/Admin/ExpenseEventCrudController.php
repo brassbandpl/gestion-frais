@@ -50,7 +50,7 @@ class ExpenseEventCrudController extends AbstractCrudController
         $user = AssociationField::new('user');
         $id = IntegerField::new('id', 'ID');
         $userUsername = TextareaField::new('user.username');
-        $eventDate = DateField::new('event.date');
+        $eventDate = DateField::new('event.dateTimeStart');
         $paied = BooleanField::new('paied');
 
         if (Crud::PAGE_INDEX === $pageName) {
