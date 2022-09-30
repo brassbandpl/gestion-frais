@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Event;
 use App\Entity\Period;
+use App\Entity\RefundConfiguration;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -48,6 +49,18 @@ class AppFixtures extends Fixture
             $this->addReference($date->format('Ymd'), $event);
         }
 
+        foreach ($this->getRefundConfiguration($manager) as [$date, $nbKmNotRefund, $euroPerKm, $isTollGoRefunded, $isTollReturnRefunded]) {
+            $refundConfiguration = new RefundConfiguration();
+            $refundConfiguration->setDateStart($date);
+            $refundConfiguration->setNbKmNotRefund($nbKmNotRefund);
+            $refundConfiguration->setEuroPerKm($euroPerKm);
+            $refundConfiguration->setIsTollGoRefunded($isTollGoRefunded);
+            $refundConfiguration->setIsTollReturnRefunded($isTollReturnRefunded);
+
+            $manager->persist($refundConfiguration);
+            $this->addReference($date->format('Ymd'), $refundConfiguration);
+        }
+
         $manager->flush();
     }
 
@@ -84,5 +97,14 @@ class AppFixtures extends Fixture
         ];
     }
 
+    private function getRefundConfiguration(): iterable
+    {
+        yield [
+            new \DateTimeImmutable('2000-01-01'), 25, 0.10, true, false,
+        ];
 
+        yield [
+            new \DateTimeImmutable('2018-05-01'), 25, 0.15, true, false,
+        ];
+    }
 }

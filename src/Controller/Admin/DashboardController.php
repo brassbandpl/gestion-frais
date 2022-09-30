@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Event;
 use App\Entity\ExpenseEvent;
 use App\Entity\Period;
+use App\Entity\RefundConfiguration;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -99,6 +100,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Event', 'fas fa-folder-open', Event::class);
         yield MenuItem::linkToCrud('Period', 'fas fa-folder-open', Period::class);
         yield MenuItem::linkToCrud('User', 'fas fa-folder-open', User::class);
+        yield MenuItem::linkToCrud('RefundConfiguration', 'fas fa-folder-open', RefundConfiguration::class);
         yield MenuItem::linktoRoute('Back to app', 'fas fa-folder-open', 'event_list');
     }
 }
