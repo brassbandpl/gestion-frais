@@ -3,40 +3,42 @@ namespace App\Service;
 
 use App\Entity\Event;
 use App\Entity\ExpenseEvent;
+use App\Entity\RefundConfiguration;
+use App\Repository\RefundConfigurationRepository;
 
 class ExpenseEventCalculator 
 {
-    private $euroPerKm;
-    private $isTollGoRefunded;
-    private $isTollReturnRefunded;
-    private $nbKmNotRefund;
+    private RefundConfigurationRepository $refundConfigurationRepository;
 
-    public function __construct(float $euroPerKm, bool $isTollGoRefunded, bool $isTollReturnRefunded, int $nbKmNotRefund)
+    public function __construct(RefundConfigurationRepository $refundConfigurationRepository)
     {
-        $this->euroPerKm = $euroPerKm;
-        $this->isTollGoRefunded = $isTollGoRefunded;
-        $this->isTollReturnRefunded = $isTollReturnRefunded;
-        $this->nbKmNotRefund = $nbKmNotRefund;
+        $this->refundConfigurationRepository = $refundConfigurationRepository;
     }
 
     public function calculateRefund(ExpenseEvent $expenseEvent): void
     {
-        $refundKmGo = $expenseEvent->getNbKmGo() > 0 ? $this->euroPerKm * $expenseEvent->getNbKmGo() : 0;
-        $refundKmReturn = $expenseEvent->getNbKmReturn() > 0 ? $this->euroPerKm * $expenseEvent->getNbKmReturn() : 0;
+        $config = $this->refundConfigurationRepository->findOneForDate($expenseEvent->getEvent()->getDateTimeStart());
+        $euroPerKm = $config->getEuroPerKm();
+        $nbKmNotRefund = $config->getNbKmNotRefund();
+        $isTollGoRefunded = $config->getIsTollGoRefunded();
+        $isTollReturnRefunded = $config->getIsTollReturnRefunded();
+
+        $refundKmGo = $expenseEvent->getNbKmGo() > 0 ? $euroPerKm * $expenseEvent->getNbKmGo() : 0;
+        $refundKmReturn = $expenseEvent->getNbKmReturn() > 0 ? $euroPerKm * $expenseEvent->getNbKmReturn() : 0;
         $refundTollGo = $expenseEvent->getTollGo() ?? 0;
         $refundTollReturn = $expenseEvent->getTollReturn() ?? 0;
 
         if ($expenseEvent->getEvent()->getType() === Event::TYPE_REPETITION) {
             $refundKmGo = 0;
-            if ($expenseEvent->getNbKmGo()-$this->nbKmNotRefund > 0) {
-                $refundKmGo = $this->euroPerKm * ($expenseEvent->getNbKmGo()-$this->nbKmNotRefund);
+            if ($expenseEvent->getNbKmGo()-$nbKmNotRefund > 0) {
+                $refundKmGo = $euroPerKm * ($expenseEvent->getNbKmGo()-$nbKmNotRefund);
             }
             $refundKmReturn = 0;
-            if ($expenseEvent->getNbKmReturn()-$this->nbKmNotRefund > 0) {
-                $refundKmReturn = $this->euroPerKm * ($expenseEvent->getNbKmReturn()-$this->nbKmNotRefund);
+            if ($expenseEvent->getNbKmReturn()-$nbKmNotRefund > 0) {
+                $refundKmReturn = $euroPerKm * ($expenseEvent->getNbKmReturn()-$nbKmNotRefund);
             }
-            $refundTollGo = $this->isTollGoRefunded ? $refundTollGo : 0;
-            $refundTollReturn = $this->isTollReturnRefunded ? $refundTollReturn : 0;
+            $refundTollGo = $isTollGoRefunded ? $refundTollGo : 0;
+            $refundTollReturn = $isTollReturnRefunded ? $refundTollReturn : 0;
         }
         
         $expenseEvent->setRefundKmGo($refundKmGo);

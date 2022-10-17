@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\RefundConfiguration;
+use App\Exception\RefundConfigurationNotFoundException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,32 +20,21 @@ class RefundConfigurationRepository extends ServiceEntityRepository
         parent::__construct($registry, RefundConfiguration::class);
     }
 
-    // /**
-    //  * @return RefundConfiguration[] Returns an array of RefundConfiguration objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findOneForDate(\DateTimeInterface $date): RefundConfiguration
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
+        $refundConfigs = $this->createQueryBuilder('r')
+            ->andWhere('r.dateStart <= :startDate')
+            ->setParameter('startDate', $date)
+            ->orderBy('r.dateStart', 'DESC')
+            ->setMaxResults(1)
             ->getQuery()
             ->getResult()
         ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?RefundConfiguration
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if (count($refundConfigs) === 0) {
+            throw new RefundConfigurationNotFoundException(sprintf('Refund configuration not found for %s', $date->format('Y-m-d')));
+        }
+
+        return $refundConfigs[0];
     }
-    */
 }
